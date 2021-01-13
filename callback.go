@@ -82,7 +82,7 @@ func (c *Client) GinRefundConfirmationCallback(onAccepted func(*RefundStatus)) g
 			return
 		}
 
-		tokens, set := ctx.Request.PostForm["token"]
+		tokens, set := ctx.Request.Form["token"]
 		if !set {
 			ctx.Status(http.StatusBadRequest)
 			return
