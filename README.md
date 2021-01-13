@@ -1,5 +1,6 @@
 # go-flow
 [![Docs](https://pkg.go.dev/badge/github.com/CamiloHernandez/go-flow)](https://pkg.go.dev/github.com/CamiloHernandez/go-flow)
+
 A simple pure Go implementation of the [Flow payment API](https://www.flow.cl/docs), with handlers for the callbacks and easy access to payment creation and validation.
 
 ## Example
