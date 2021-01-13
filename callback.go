@@ -76,6 +76,12 @@ func (c *Client) HTTPOrderConfirmationCallback(onAccepted func(*Order)) http.Han
 // It validates the provided token, and if the token matches an accepted refund, the onAccepted function gets called.
 func (c *Client) GinRefundConfirmationCallback(onAccepted func(*RefundStatus)) gin.HandlerFunc {
 	return func(ctx *gin.Context) {
+		err := ctx.Request.ParseForm()
+		if err != nil {
+			ctx.Status(http.StatusBadRequest)
+			return
+		}
+
 		tokens, set := ctx.Request.PostForm["token"]
 		if !set {
 			ctx.Status(http.StatusBadRequest)
@@ -95,7 +101,7 @@ func (c *Client) GinRefundConfirmationCallback(onAccepted func(*RefundStatus)) g
 			return
 		}
 
-		if refund.Status == RefundStatusAccepted || refund.Status == RefundStatusRefunded{
+		if refund.Status == RefundStatusAccepted || refund.Status == RefundStatusRefunded {
 			ctx.Status(http.StatusOK)
 			onAccepted(refund)
 			return
